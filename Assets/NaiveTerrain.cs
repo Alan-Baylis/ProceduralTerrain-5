@@ -59,6 +59,15 @@ public class NaiveTerrain : MonoBehaviour {
 	}
 
 	Vector2[] GenerateUVs () {
-		return null;
+		int sideVertices = size + 1;
+		Vector2[] uvs = new Vector2[sideVertices * sideVertices];
+
+		for (int ux = 0; ux < sideVertices; ux++) {
+			for (int uz = 0; uz < sideVertices; uz++) {
+				uvs[ux * sideVertices + uz] = new Vector2((float)ux / size, (float)uz / size);
+			}
+		}
+
+		return uvs;
 	}
 }
