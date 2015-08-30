@@ -31,7 +31,31 @@ public class NaiveTerrain : MonoBehaviour {
 	}
 
 	int[] GenerateTriangles () {
-		return null;
+		int verticesPerTriangle = 3;
+		int trianglesPerCell = 2;
+		int numberOfCells = size * size;
+		int[] triangles = new int[numberOfCells * trianglesPerCell * verticesPerTriangle];
+		int triangleIndex = 0;
+		for (int cx = 0; cx < size; cx++) {
+			for (int cz = 0; cz < size; cz++) {
+				int n = cx * (size + 1) + cz;
+
+				// First triangle of the pair
+				triangles[triangleIndex] = n;
+				triangles[triangleIndex + 1] = n + 1;
+				triangles[triangleIndex + 2] = n + size + 2;
+				triangleIndex += 3;
+
+				// Second triangle of the pair
+				triangles[triangleIndex] = n;
+				triangles[triangleIndex + 1] = n + size + 2;
+				triangles[triangleIndex + 2] = n + size + 1;
+				triangleIndex += 3;
+
+			}
+		}
+
+		return triangles;
 	}
 
 	Vector2[] GenerateUVs () {
