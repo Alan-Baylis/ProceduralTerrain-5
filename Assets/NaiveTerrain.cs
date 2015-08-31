@@ -9,12 +9,17 @@ public class NaiveTerrain : MonoBehaviour {
 	public float cellSize = 1.0f;
 
 	void Start () {
-		Mesh mesh = GetComponent<MeshFilter>().mesh;
-		mesh.vertices = GenerateVertices();
-		mesh.triangles = GenerateTriangles();
-		mesh.uv = GenerateUVs();
-		mesh.RecalculateNormals();
+		Regenerate ();
 
+	}
+
+	public void Regenerate ()
+	{
+		Mesh mesh = GetComponent<MeshFilter> ().mesh;
+		mesh.vertices = GenerateVertices ();
+		mesh.triangles = GenerateTriangles ();
+		mesh.uv = GenerateUVs ();
+		mesh.RecalculateNormals ();
 	}
 
 	Vector3[] GenerateVertices () {
@@ -23,7 +28,8 @@ public class NaiveTerrain : MonoBehaviour {
 
 		for (int gx = 0; gx < sideVertices; gx++) {
 			for (int gz = 0; gz < sideVertices; gz++) {
-				vertices[gx * sideVertices + gz] = new Vector3(gx * cellSize, 0.0f, gz * cellSize);
+				float height = Random.Range(-1.0f, 1.0f);
+				vertices[gx * sideVertices + gz] = new Vector3(gx * cellSize, height, gz * cellSize);
 			}
 		}
 
